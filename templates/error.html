@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{{ super() }}
+.main-box{
+background:#fff;
+border-radius: 30px;
+}
+{% endblock %}
+
+{% block content %}
+    <div class="container pt-5">
+        <div class="row">
+        <div class="col-4 offset-4 main-box pt-4 pb-4 p-5">
+        <main class="form-signin">
+            <h1 class="h3 mb-3 fw-normal text-center">Oops! Something wrong :(</h1>
+            <h1 class="h3 mb-3 mt-5 fw-normal text-center"><a href="/" class="btn btn-outline-warning">Main page</a></h1>
+
+        </main>
+        </div>
+        </div>
+    </div>
+{% endblock %}

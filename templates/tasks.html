@@ -1,0 +1,398 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{{ super() }}
+.main-box{
+background:#fff;
+padding: 0;
+}
+span.add-list{
+font-weight: 700;
+color: navy;
+margin-right: 5px;
+font-size: 1.2em;
+}
+
+.vl {
+height: 100%;
+font-size: 20px;
+}
+
+.list-svg svg:hover{
+    fill:navy;
+}
+
+.control-tasks span{
+    color: white;
+
+}
+.control-tasks svg{
+    fill: white;
+}
+
+a{
+text-decoration:none;
+}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>SIMPLE TODO LISTS</h1>
+                <p>FROM RUBY GARAGE</p>
+            </div>
+        </div>
+        {% for list in lists %}
+        <div class="row mb-5">
+            <div class="col-12 main-box">
+                <nav class="navbar navbar-dark bg-primary">
+                  <div class="container-fluid">
+                    <div class="navbar-brand">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="navy" class="bi bi-calendar pb-1" viewBox="0 0 16 16">
+                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                        </svg>
+                      {{ list['name'] }}
+                    </div>
+                    <div class="d-flex list-control">
+                        <a href="#" name="{{ list['id'] }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" class="rename">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-pen pb-1" viewBox="0 0 16 16">
+                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                        </svg>
+                        </a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="navy" class="bi bi-three-dots-vertical pb-1" viewBox="0 0 16 16">
+                          <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
+                        <a href="#" class="delete" name="{{ list['id'] }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-trash pb-1" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                        </a>
+                    </div>
+                  </div>
+                </nav>
+                <div class="bg-white mt-3">
+                      <form class="container-fluid">
+                            <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1" style="font-size:20px;font-weight:700;color:#2c6622;">+</span>
+                            <input type="text" class="form-control w-50" placeholder="Start typing here to create a task..." aria-label="Start typing here to create a task..." aria-describedby="button-addon2" name="newtask">
+                            <input type="datetime-local" class="form-control main-datetime" name="deadline">
+                                <input type="hidden" name="{{list['id']}}">
+                                <button class="btn btn-success" type="button" id="button-addon2" name="newtaskbutton" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Add Task</button>
+                            </div>
+                      </form>
+                </div>
+                <ul class="list-group tasks">
+                    {% for task in tasks[list['id']] %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center task"  id="{{ list['id'] }}">
+                    <div class="col-9 task-desc">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." {% if task['status'] == 1 %} checked="checked" {% endif %}>
+                        <span style="border-left:1px solid #ced1cd;padding-left:5px;" class="task-text">
+                        {{ task['text'] }}
+                        </span>
+                    </div>
+                      <div class="control-tasks col-3 d-flex justify-content-end">
+                          <div class="date-deadline" style="margin-right:10px;">{{ task['deadline'] }}</div>
+                          <a href="#" class="list-svg up">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                          </a>
+                          <a href="#" class="list-svg down">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                            </svg>
+                          </a>
+                          <span style="margin:0 7; ">|</span>
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" class="list-svg rename-task">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-pen" viewBox="0 0 16 16" >
+                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                        </svg>
+                          </a>
+                          <span style="margin:0 7;">|</span>
+                          <a href="#" class="list-svg delete-task">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-trash" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                          </a>
+                      </div>
+                  </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row mt-5 mb-5">
+            <div class="col-12 d-flex justify-content-center">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><span class="add-list">+</span>Add TODO List</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Add new List</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        <form method="POST" action="/addlist">
+          <div class="modal-body">
+
+                <div class="form-floating mb-4">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="Name of List" name="name">
+                  <label for="floatingInput">Name of List</label>
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <input class="btn btn-primary" type="submit" value="Create">
+          </div>
+         </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel1">Rename list</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-rename-btn"></button>
+          </div>
+        <form method="POST" action="/renamelist" class="rename-form">
+          <div class="modal-body">
+
+                <div class="form-floating mb-4">
+                  <input type="text" class="form-control" id="floatingInput1" placeholder="New name of List" name="name">
+                  <label for="floatingInput1">New name of List</label>
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-rename">Close</button>
+            <input class="btn btn-primary" type="submit" value="Rename">
+          </div>
+         </form>
+        </div>
+      </div>
+    </div>
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel2">Rename list</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-rename-btn-task"></button>
+          </div>
+        <form method="POST" action="/renametask" class="rename-form-task">
+          <div class="modal-body">
+
+                <div class="form-floating mb-4">
+                  <input type="text" class="form-control" id="floatingInput2"  name="name">
+                <label for="floatingInput2">Tasks text</label>
+                    <input type="datetime-local" class="form-control" name="deadline">
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-rename-task">Close</button>
+            <input class="btn btn-primary" type="submit" value="Change">
+          </div>
+         </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+        $('.main-datetime').val(new Date().toJSON().slice(0,19));
+
+        $('.control-tasks').on('click', 'a.delete-task', function(){
+                $(this).parents('li.task').remove();
+                var text = $(this).parents('li.task').find('span.task-text').html().trim();
+                var id = $(this).parents('li.task').attr('id');
+                $.ajax({
+                    type: "POST",
+                    url: "/deletetask",
+                    data: {
+                        listid: id,
+                        tasktext: text
+                    }
+                 });
+
+            });
+        $('button[name="newtaskbutton"]').click(function(){
+                function addZero(i) {
+                  if (i < 10) {i = "0" + i;}
+                  return i;
+                }
+                var text = $(this).siblings("input[type='text']").val();
+                var listid = $(this).siblings("input[type='hidden']").attr('name');
+                var date = new Date($(this).siblings("input[name='deadline']").val());
+                var day = addZero(date.getDate());
+                var month = addZero(date.getMonth()+1);
+                var year = date.getFullYear();
+                var hours = addZero(date.getHours());
+                var minutes = addZero(date.getMinutes());
+                var sec = addZero(date.getSeconds());
+                if (text.trim() != ''){
+                if (!(isNaN(day))){
+
+                    $.ajax({
+                      type: "POST",
+                      url: "/addtask",
+                      data: { tasktext: text, list_id: listid, date: date}
+                      });
+                    var newtag = `
+                    <li class="list-group-item d-flex justify-content-between align-items-center task" id=${listid}">
+                    <div class="col-9 task-desc">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                        <span style="border-left:1px solid #ced1cd;padding-left:5px;" class="task-text">
+                        ${text}
+                        </span>
+                    </div>
+                      <div class="control-tasks col-3 d-flex justify-content-end">
+                          <div class="date-deadline" style="margin-right:10px;">${year}-${month}-${day} ${hours}:${minutes}:${sec}</div>
+                          <a href="#" class="list-svg up">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                          </a>
+                          <a href="#" class="list-svg down">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                            </svg>
+                          </a>
+                          <span style="margin:0 7; ">|</span>
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" class="list-svg rename-task">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-pen" viewBox="0 0 16 16" >
+                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                        </svg>
+                          </a>
+                          <span style="margin:0 7;">|</span>
+                          <a href="#" class="list-svg delete-task">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d1dbeb" class="bi bi-trash" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                          </a>
+                      </div>
+                  </li>`;
+                  $(this).parents('.main-box').find('.tasks').prepend(newtag);
+                  $('input[name="newtask"]').val('');
+
+                }}
+
+             });
+
+            $('.tasks').on('mouseenter', 'li', function(){
+                $(this).css('background', '#faffba');
+                $(this).find('.control-tasks span').css('color', '#ced1cd');
+                $(this).find('.control-tasks svg').css('fill', '#ced1cd');
+                });
+            $('.tasks').on('mouseleave', 'li', function(){
+                $(this).css('background', 'white')
+                });
+            $('.control-tasks').on('mouseenter', '.list-svg', function(){
+                $(this).find('svg').css('fill', 'navy');
+                });
+            $('.control-tasks').on('mouseleave', '.list-svg', function(){
+                $(this).find('svg').css('fill', '#ced1cd');
+                });
+             });
+             $('.tasks').on('mouseleave','li', function(){
+                $(this).find('.control-tasks span').css('color', 'white');
+                $(this).find('.control-tasks svg').css('fill', 'white');
+             });
+
+
+             $('.control-tasks').on('click','a.rename', function(){
+                var id = $(this).attr('name');
+                $('#floatingInput1').append(`<input type="hidden" id="for-edit" name="id" value="${id}">`);
+             });
+             $('#close-rename, #close-rename-btn').click(function(){
+                $('input[id="for-edit"]').remove();
+             });
+             $('.control-tasks').on('click', '.delete', function(){
+                 var delurl = "/deletelist/" + $(this).attr('name');
+                 $.ajax({
+                    type: "GET",
+                    url: delurl
+                 });
+                 $(this).parents('.row').remove();
+             });
+            $('.control-tasks').on('click', 'a.rename-task', function(){
+                var date = $(this).parents('li.task').find('div.date-deadline').html().trim().split(' ');
+                var resdate = date[0] + "T" + date[1];
+                var text = $(this).parents('li.task').find('span.task-text').html().trim();
+                var id = $(this).parents('li.task').attr('id');
+                $('.rename-form-task').find('input[type="text"]').val(text);
+                $('.rename-form-task').find('input[type="datetime-local"]').val(resdate);
+                $('#floatingInput2').append(`<input type="hidden" id='for-edit' name="id" value="${id}">`);
+                $('#floatingInput2').append(`<input type="hidden" id='for-edit' name="oldtext" value="${text}">`);
+             });
+             $('#close-rename-task, #close-rename-btn-task').click(function(){
+                $('input[id="for-edit"]').remove();
+             });
+             $('.task-desc').on('change','input[type="checkbox"]', function(){
+                var status = 0
+                if(this.checked){
+                    var status = 1
+                }
+                else{
+                    var status = 0
+                }
+                var text = $(this).parents('li.task').find('span.task-text').html().trim();
+                var id = $(this).parents('li.task').attr('id');
+                $.ajax({
+                    type: "POST",
+                    url: "/readytask",
+                    data: {
+                        listid: id,
+                        tasktext: text,
+                        status: status
+                    }
+                 });
+
+             });
+            $(".control-tasks").on('click','.up',function () {
+                $(this).parents('.task').insertBefore($(this).parents('.task').prev());
+                var text1 = $(this).parents('.task').find('span.task-text').text().trim();
+                var text2 = $(this).parents('.task').next().find('span.task-text').text().trim();
+                var id = $(this).parents('li.task').attr('id');
+                $.ajax({
+                    type: "POST",
+                    url: "/changeprior",
+                    data: {
+                        id: id,
+                        text1: text1,
+                        text2: text2
+                    }
+                 });
+
+            });
+
+            $(".control-tasks").on('click','.down',function () {
+                $(this).parents('.task').insertAfter($(this).parents('.task').next());
+                var text1 = $(this).parents('.task').find('span.task-text').text().trim();
+                var text2 = $(this).parents('.task').prev().find('span.task-text').text().trim();
+                var id = $(this).parents('li.task').attr('id');
+                $.ajax({
+                    type: "POST",
+                    url: "/changeprior",
+                    data: {
+                        id: id,
+                        text1: text1,
+                        text2: text2
+                    }
+                 });
+
+            });
+
+    </script>
+{% endblock %}

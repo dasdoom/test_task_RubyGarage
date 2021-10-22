@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{{ super() }}
+.main-box{
+background:#fff;
+border-radius: 30px;
+}
+{% endblock %}
+
+{% block content %}
+    <div class="container pt-5">
+        <div class="row">
+        <div class="col-4 offset-4 main-box pt-4 pb-4 p-5">
+        <main class="form-signin">
+            <h1 class="h3 mb-3 fw-normal text-center">Sign In</h1>
+          <form method="POST">
+                {% for cat, msg in get_flashed_messages(True) %}
+					<div class="alert alert-{{cat}} alert-dismissible fade show" role="alert">
+					  {{msg}}
+					</div>
+				{% endfor %}
+
+            <div class="form-floating mb-4">
+              <input type="text" class="form-control" id="floatingInput" placeholder="login" name="login">
+              <label for="floatingInput">Login</label>
+            </div>
+            <div class="form-floating mb-4">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+              <label for="floatingPassword">Password</label>
+            </div>
+              <div class="d-flex justify-content-between">
+                    <a class="btn btn-lg btn-outline-primary" href="/sign-up">Sign up</a>
+                    <button class="btn btn-lg btn-outline-success" type="submit">Sign in</button>
+              </div>
+          </form>
+        </main>
+        </div>
+        </div>
+    </div>
+{% endblock %}
