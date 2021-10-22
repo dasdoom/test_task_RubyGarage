@@ -10,7 +10,7 @@ import datetime
 import re
 
 app = Flask(__name__)
-app.secret_key = ''
+app.secret_key = 'uhfuDUfh:DfhUsfhe;e;ehHEW;FEuhHREW*rwer9)eeduehf;eihf:wo'
 login_manager = LoginManager(app)
 login_manager.login_view = 'sign_in'
 login_manager.login_message = 'Please, sign in!'
@@ -24,6 +24,11 @@ def before_req():
     global conn
     global cursor
     conn = pymysql.connect(
+        host='91.223.223.244',
+        user='voecggxw_danylo',
+        password='danylo123@',
+        db='voecggxw_rubygarage',
+        cursorclass=DictCursor
     )
     cursor = conn.cursor()
 

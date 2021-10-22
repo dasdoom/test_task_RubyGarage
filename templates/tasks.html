@@ -309,16 +309,21 @@ text-decoration:none;
                 $(this).find('.control-tasks span').css('color', 'white');
                 $(this).find('.control-tasks svg').css('fill', 'white');
              });
+             $('.list-control').on('mouseenter', 'a svg', function(){
+                $(this).css('fill', 'navy');
+                });
+            $('.list-control').on('mouseleave', 'a svg', function(){
+                $(this).css('fill', '#fff');
+                });
 
-
-             $('.control-tasks').on('click','a.rename', function(){
+             $('.list-control').on('click','a.rename', function(){
                 var id = $(this).attr('name');
                 $('#floatingInput1').append(`<input type="hidden" id="for-edit" name="id" value="${id}">`);
              });
              $('#close-rename, #close-rename-btn').click(function(){
                 $('input[id="for-edit"]').remove();
              });
-             $('.control-tasks').on('click', '.delete', function(){
+             $('.list-control').on('click', '.delete', function(){
                  var delurl = "/deletelist/" + $(this).attr('name');
                  $.ajax({
                     type: "GET",
