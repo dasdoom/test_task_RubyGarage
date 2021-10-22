@@ -119,7 +119,7 @@ def delete_task():
 @app.route('/renametask', methods=['POST'])
 @login_required
 def rename_task():
-    res_date = datetime.datetime.strptime(request.form['deadline'], '%Y-%m-%dT%H:%M')
+    res_date = datetime.datetime.strptime(request.form['deadline'], '%Y-%m-%dT%H:%M:%S')
     cursor.execute('UPDATE tasks SET text=%s, deadline=%s WHERE id_list=%s and text=%s',
                    (request.form['name'], res_date, request.form['id'], request.form['oldtext']))
     conn.commit()

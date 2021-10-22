@@ -78,7 +78,7 @@ text-decoration:none;
                             <div class="input-group">
                             <span class="input-group-text" id="basic-addon1" style="font-size:20px;font-weight:700;color:#2c6622;">+</span>
                             <input type="text" class="form-control w-50" placeholder="Start typing here to create a task..." aria-label="Start typing here to create a task..." aria-describedby="button-addon2" name="newtask">
-                            <input type="datetime-local" class="form-control main-datetime" name="deadline">
+                            <input type="datetime-local"  step=1 class="form-control main-datetime" name="deadline">
                                 <input type="hidden" name="{{list['id']}}">
                                 <button class="btn btn-success" type="button" id="button-addon2" name="newtaskbutton" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Add Task</button>
                             </div>
@@ -196,7 +196,7 @@ text-decoration:none;
                 <div class="form-floating mb-4">
                   <input type="text" class="form-control" id="floatingInput2"  name="name">
                 <label for="floatingInput2">Tasks text</label>
-                    <input type="datetime-local" class="form-control" name="deadline">
+                    <input type="datetime-local" step=1 class="form-control" name="deadline">
                 </div>
           </div>
           <div class="modal-footer">
